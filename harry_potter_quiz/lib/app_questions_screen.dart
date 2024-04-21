@@ -27,7 +27,10 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
               padding: const EdgeInsets.all(8.0),
               child: Text(
                 currentQuestion.questionText,
-                style: const TextStyle(color: Colors.black),
+                style: const TextStyle(
+                    color: Color(0xff401201),
+                    fontWeight: FontWeight.w600,
+                    fontSize: 20),
                 textAlign: TextAlign.center,
               ),
             ),
