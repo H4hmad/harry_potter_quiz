@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:harry_potter_quiz/app_results_screen.dart';
 import 'package:harry_potter_quiz/data/questions.dart';
 import 'package:harry_potter_quiz/start-screen.dart';
 import 'package:harry_potter_quiz/app_questions_screen.dart';
+import 'package:harry_potter_quiz/app_results_screen.dart';
 
 class Quiz extends StatefulWidget {
   const Quiz({super.key});
@@ -31,8 +33,8 @@ class _QuizState extends State<Quiz> {
 
     if (selectedAnswers.length == questions.length) {
       setState(() {
+        activeScreen = ResultsScreen(collectAnswers: selectedAnswers);
         selectedAnswers = [];
-        activeScreen = HomeScreen(switchScreen);
       });
     }
   }
