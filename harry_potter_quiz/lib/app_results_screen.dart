@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:harry_potter_quiz/app_summary_section.dart';
 import 'package:harry_potter_quiz/data/questions.dart';
-import 'package:harry_potter_quiz/app_summary_section.dart';
+import 'package:harry_potter_quiz/app_quiz.dart';
 
 class ResultsScreen extends StatelessWidget {
-  const ResultsScreen({super.key, required this.collectAnswers});
+  const ResultsScreen(
+      {super.key, required this.collectAnswers, required this.restartQuiz});
 
   final List<String> collectAnswers;
+
+  final void Function() restartQuiz;
 
   List<Map<String, Object>> getSummaryData() {
     List<Map<String, Object>> summaryData = [];
@@ -28,6 +31,15 @@ class ResultsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final summaryData = getSummaryData();
+    final numOfQuestions = questions.length;
+
+    final numOfCorrectAnswers = summaryData.where(
+      (data) {
+        return data['correctAnswer'] == data['chosenAnswer'];
+      },
+    ).length;
+
     return SizedBox(
       width: double.infinity,
       child: Container(
@@ -36,11 +48,13 @@ class ResultsScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            const Text("You've answered X out of Y questions correctly!"),
+            Text(
+                "You've answered $numOfCorrectAnswers out of $numOfQuestions questions correctly!"),
             const SizedBox(height: 30),
-            SummarySection(getSummaryData()),
+            SummarySection(summaryData),
             const SizedBox(height: 30),
-            TextButton(onPressed: () {}, child: const Text("Restart Quiz!"))
+            TextButton(
+                onPressed: restartQuiz, child: const Text("Restart Quiz!"))
           ],
         ),
       ),
